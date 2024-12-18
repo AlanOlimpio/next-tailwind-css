@@ -10,6 +10,7 @@ import React from "react";
 import { ModeToggle } from "./theme-toggle";
 import { MenuIcon } from "./menuIcon";
 import { LogoIcon } from "./LogoIcon";
+import { Login } from "./login";
 
 export default function Header() {
   return (
@@ -37,7 +38,9 @@ export default function Header() {
               About
             </Link>
           </nav>
+          <Login />
           <ModeToggle />
+
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="outline" size="icon" className="lg:hidden">

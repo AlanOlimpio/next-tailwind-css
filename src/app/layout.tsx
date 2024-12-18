@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import SessionWrapper from "@/components/SessionWrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,11 +32,14 @@ export default function RootLayout({
         className={` ${geistSans.variable} ${geistMono.variable}  antialiased pb-10`}
       >
         <ThemeProvider attribute="class" defaultTheme="dark">
-          <Header />
-          <div className="mx-auto max-w-7xl  w-full  px-4 md:px-6 pb-10">
-            {children}
-          </div>
-          <Footer />
+          <SessionWrapper>
+            <Header />
+            <div className="mx-auto max-w-7xl  w-full  px-4 md:px-6 pb-10">
+              {children}
+            </div>
+
+            <Footer />
+          </SessionWrapper>
         </ThemeProvider>
       </body>
     </html>
