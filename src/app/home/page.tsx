@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 
 import { Metadata } from "next";
 import { ActiveProjectsCard } from "@/components/active-projects-card";
+import { CompletedProjectsCard } from "@/components/completed-projects-card";
 
 export const metadata: Metadata = {
   title: "Home | Tailwind CSS",
@@ -20,6 +21,7 @@ export default async function Home() {
       <h1 className="text-3xl font-bold tracking-tight pt-7">Dashboard</h1>
       <div className="grid grid-cols-3 gap-4 max-md:grid-cols-2 max-sm:grid-cols-1">
         <ActiveProjectsCard />
+        <CompletedProjectsCard />
       </div>
     </main>
   );
