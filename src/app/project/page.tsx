@@ -32,8 +32,9 @@ export default async function Project() {
           <TableHeader>
             <TableRow>
               <TableHead>Identificador</TableHead>
-              <TableHead>Nome do projeto</TableHead>
+              <TableHead className="min-w-[170px]">Nome do projeto</TableHead>
               <TableHead>Status</TableHead>
+              <TableHead>Progresso</TableHead>
               <TableHead className="w-[164px]">Detalhes do Projeto</TableHead>
             </TableRow>
           </TableHeader>
