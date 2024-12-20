@@ -2,6 +2,7 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
 import { Metadata } from "next";
+import { ActiveProjectsCard } from "@/components/active-projects-card";
 
 export const metadata: Metadata = {
   title: "Home | Tailwind CSS",
@@ -18,7 +19,7 @@ export default async function Home() {
     <main className="flex flex-col gap-4">
       <h1 className="text-3xl font-bold tracking-tight pt-7">Dashboard</h1>
       <div className="grid grid-cols-3 gap-4 max-md:grid-cols-2 max-sm:grid-cols-1">
-        {session?.user?.name}
+        <ActiveProjectsCard />
       </div>
     </main>
   );
