@@ -1,6 +1,15 @@
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
+import {
+  Table,
+  TableBody,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { ProjectTableRow } from "@/components/project-table-row";
+
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -14,11 +23,26 @@ export default async function Project() {
   if (!session) {
     redirect("/");
   }
+
   return (
     <main className="flex flex-col gap-4">
       <h1 className="text-3xl font-bold tracking-tight pt-7">Project</h1>
-      <div className="grid grid-cols-3 gap-4 max-md:grid-cols-2 max-sm:grid-cols-1">
-        {session?.user?.name}
+      <div className="rounded-md border">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Identificador</TableHead>
+              <TableHead>Nome do projeto</TableHead>
+              <TableHead>Status</TableHead>
+              <TableHead className="w-[164px]">Detalhes do Projeto</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {Array.from({ length: 10 }).map((_, i) => {
+              return <ProjectTableRow key={`identifier${i}`} />;
+            })}
+          </TableBody>
+        </Table>
       </div>
     </main>
   );
