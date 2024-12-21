@@ -1,33 +1,20 @@
+"use client";
+
+import { useRouter } from "next/navigation";
 import { ArrowRight } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { Progress } from "./ui/progress";
 import { ProjectInterfaceProps } from "@/interfaces/projects";
-
-const statusMap = {
-  active: {
-    text: "Ativo",
-    value: 66,
-    color: "bg-cyan-500",
-  },
-  late: {
-    text: "Atrasado",
-    value: 33,
-    color: "bg-red-500",
-  },
-  completed: {
-    text: "Concluído",
-    value: 100,
-    color: "bg-green-500",
-  },
-};
+import { statusMap } from "@/utils/statusMap";
 
 export function ProjectTableRow({
   project,
 }: {
   project: ProjectInterfaceProps;
 }) {
+  const router = useRouter();
   return (
     <TableRow>
       <TableCell className="font-mono text-xs font-medium">
@@ -44,7 +31,11 @@ export function ProjectTableRow({
       </TableCell>
 
       <TableCell>
-        <Button variant="outline" size="sm">
+        <Button
+          onClick={() => router.push(`/project/${project.id}`)}
+          variant="outline"
+          size="sm"
+        >
           <ArrowRight className="mr-2 h-3 w-3" />
           Ver detalhes
         </Button>
