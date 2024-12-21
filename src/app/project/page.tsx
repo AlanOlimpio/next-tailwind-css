@@ -11,6 +11,7 @@ import {
 import { ProjectTableRow } from "@/components/project-table-row";
 
 import { Metadata } from "next";
+import { projects } from "@/components/mock/projects";
 
 export const metadata: Metadata = {
   title: "Project | Tailwind CSS",
@@ -39,8 +40,10 @@ export default async function Project() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {Array.from({ length: 10 }).map((_, i) => {
-              return <ProjectTableRow key={`identifier${i}`} />;
+            {projects.map((project, i) => {
+              return (
+                <ProjectTableRow project={project} key={`identifier${i}`} />
+              );
             })}
           </TableBody>
         </Table>

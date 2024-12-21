@@ -3,38 +3,43 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { Progress } from "./ui/progress";
+import { ProjectInterfaceProps } from "@/interfaces/projects";
 
 const statusMap = {
   active: {
-    tex: "ativo",
-    value: 33,
-    color: "bg-slate-500",
+    text: "Ativo",
+    value: 66,
+    color: "bg-cyan-500",
   },
   late: {
-    tex: "Ativo",
-    value: 66,
-    color: "bg-amber-500",
+    text: "Atrasado",
+    value: 33,
+    color: "bg-red-500",
   },
   completed: {
-    tex: "Concluído",
+    text: "Concluído",
     value: 100,
     color: "bg-green-500",
   },
 };
 
-export function ProjectTableRow() {
+export function ProjectTableRow({
+  project,
+}: {
+  project: ProjectInterfaceProps;
+}) {
   return (
     <TableRow>
       <TableCell className="font-mono text-xs font-medium">
-        sfsadfasdfasdfas
+        {project.id}
       </TableCell>
 
-      <TableCell className="font-medium">Projeto teste</TableCell>
-      <TableCell>Concluído</TableCell>
+      <TableCell className="font-medium">{project.name}</TableCell>
+      <TableCell>{statusMap[project.status].text}</TableCell>
       <TableCell>
         <Progress
-          value={statusMap["completed"].value}
-          className={`${statusMap["completed"].color}`}
+          value={statusMap[project.status].value}
+          className={`${statusMap[project.status].color}`}
         />
       </TableCell>
 
