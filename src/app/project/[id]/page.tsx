@@ -39,29 +39,31 @@ export default async function ProjectDetails({
             Nome do projeto: {project.name}
           </h1>
           <p>{project.description}</p>
+          <div className="grid  gap-4 max-sm:grid-cols-1">
+            <h2 className="text-2xl font-bold tracking-tight ">
+              Tarefas associadas:
+            </h2>
+            <ul className="list-decimal pl-10">
+              {project.associatedTasks?.map((item, index) => {
+                if (item.length) {
+                  return <li key={index}>{item}</li>;
+                }
+              })}
+            </ul>
+          </div>
+          <div className="grid grid-cols-3 gap-4 max-md:grid-cols-2 max-sm:grid-cols-1">
+            <div className="pt-7">
+              <span>Status</span>
+
+              <Progress
+                value={statusMap[project.status].value}
+                className="bg-gray-200 dark:bg-gray-700"
+              />
+            </div>
+          </div>
         </div>
+
         <Comments project={project} />
-      </div>
-      <div className="grid  gap-4 max-sm:grid-cols-1">
-        <h2 className="text-2xl font-bold tracking-tight ">
-          Tarefas associadas:
-        </h2>
-        <ul className="list-decimal pl-10">
-          {project.associatedTasks?.map((item, index) => {
-            if (item.length) {
-              return <li key={index}>{item}</li>;
-            }
-          })}
-        </ul>
-      </div>
-      <div className="grid grid-cols-3 gap-4 max-md:grid-cols-2 max-sm:grid-cols-1">
-        <div className="pt-7">
-          <span>Status</span>
-          <Progress
-            value={statusMap[project.status].value}
-            className="bg-gray-200 dark:bg-gray-700"
-          />
-        </div>
       </div>
     </main>
   );
