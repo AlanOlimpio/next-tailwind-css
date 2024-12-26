@@ -12,6 +12,10 @@ import { ProjectTableRow } from "@/components/project-table-row";
 
 import { Metadata } from "next";
 import { projects } from "@/components/mock/projects";
+import { Button } from "@/components/ui/button";
+import { PlusCircle } from "lucide-react";
+import { Dialog, DialogTrigger } from "@/components/ui/dialog";
+import { ProjectCreationDialog } from "@/components/project-creation-dialog";
 
 export const metadata: Metadata = {
   title: "Project | Tailwind CSS",
@@ -27,7 +31,19 @@ export default async function Project() {
 
   return (
     <main className="flex flex-col gap-4">
-      <h1 className="text-3xl font-bold tracking-tight pt-7">Project</h1>
+      <div className="flex justify-between gap-4 max-md:flex-col align-middle pt-7">
+        <h1 className="text-3xl font-bold tracking-tight">Project</h1>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button variant="outline" size="sm">
+              <PlusCircle className="mr-2 h-3 w-3" />
+              Novo projeto
+            </Button>
+          </DialogTrigger>
+          <ProjectCreationDialog />
+        </Dialog>
+      </div>
+
       <div className="rounded-md border">
         <Table>
           <TableHeader>

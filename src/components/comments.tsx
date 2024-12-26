@@ -12,7 +12,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 const CommentForm = z.object({
   comment: z.string().min(3, {
-    message: "This is required, must contain at least 3 character(s)!",
+    message: "Isto é obrigatório, deve conter pelo menos 3 caracteres!",
   }),
 });
 
