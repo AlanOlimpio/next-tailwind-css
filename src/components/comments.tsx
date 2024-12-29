@@ -79,7 +79,7 @@ export function Comments({ project }: { project: ProjectInterfaceProps }) {
         </div>
 
         <footer>
-          <Button type="submit" disabled={isSubmitting}>
+          <Button type="submit" variant="secondary" disabled={isSubmitting}>
             Publicar
           </Button>
         </footer>

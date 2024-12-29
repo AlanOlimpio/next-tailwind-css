@@ -1,9 +1,11 @@
 import { Comments } from "@/components/comments";
 import { projects } from "@/components/mock/projects";
+import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 
 import { ProjectInterfaceProps } from "@/interfaces/projects";
 import { statusMap } from "@/utils/statusMap";
+import { ArrowRight } from "lucide-react";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 export default async function ProjectDetails({
@@ -33,12 +35,26 @@ export default async function ProjectDetails({
 
   return (
     <main className="flex flex-col gap-4 pt-7">
-      <div className="grid grid-cols-2 gap-4  max-md:grid-cols-2 max-sm:grid-cols-1">
-        <div className="grid gap-4">
+      <div className="grid grid-cols-2 gap-16  max-md:grid-cols-2 max-sm:grid-cols-1">
+        <div className="grid gap-4 content-start">
           <h1 className="text-3xl font-bold tracking-tight ">
             Nome do projeto: {project.name}
           </h1>
           <p>{project.description}</p>
+          <div className="grid grid-cols-3 content-center gap-16 max-md:grid-cols-2 max-sm:grid-cols-1 ">
+            <div className="col-span-2">
+              <span>Status</span>
+
+              <Progress
+                value={statusMap[project.status].value}
+                className="bg-gray-200 dark:bg-gray-700"
+              />
+            </div>
+            <Button variant="default" size="lg">
+              <ArrowRight className="mr-2 h-3 w-3" />
+              Concluir
+            </Button>
+          </div>
           <div className="grid  gap-4 max-sm:grid-cols-1">
             <h2 className="text-2xl font-bold tracking-tight ">
               Tarefas associadas:
@@ -50,16 +66,6 @@ export default async function ProjectDetails({
                 }
               })}
             </ul>
-          </div>
-          <div className="grid grid-cols-3 gap-4 max-md:grid-cols-2 max-sm:grid-cols-1">
-            <div className="pt-7">
-              <span>Status</span>
-
-              <Progress
-                value={statusMap[project.status].value}
-                className="bg-gray-200 dark:bg-gray-700"
-              />
-            </div>
           </div>
         </div>
 
