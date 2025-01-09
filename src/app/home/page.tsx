@@ -5,6 +5,7 @@ import { Metadata } from "next";
 import { ActiveProjectsCard } from "@/components/active-projects-card";
 import { CompletedProjectsCard } from "@/components/completed-projects-card";
 import { ProgressChart } from "@/components/progress-chart";
+import { buildNextAuthOptions } from "../api/auth/[...nextauth]/route";
 
 export const metadata: Metadata = {
   title: "Home | Tailwind CSS",
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-  const session = await getServerSession();
+  const session = await getServerSession(buildNextAuthOptions);
 
   if (!session) {
     redirect("/");

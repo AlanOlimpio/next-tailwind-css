@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { PlusCircle } from "lucide-react";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { ProjectCreationDialog } from "@/components/project-creation-dialog";
+import { buildNextAuthOptions } from "../api/auth/[...nextauth]/route";
 
 export const metadata: Metadata = {
   title: "Project | Tailwind CSS",
@@ -23,7 +24,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Project() {
-  const session = await getServerSession();
+  const session = await getServerSession(buildNextAuthOptions);
 
   if (!session) {
     redirect("/");

@@ -33,18 +33,22 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
+import { api } from "@/lib/axios";
+import { useSession } from "next-auth/react";
 
 const projectCreationSchema = z
   .object({
     name: z.string().min(3, {
       message: "Isto é obrigatório, deve conter pelo menos 3 caracteres!",
     }),
+    authorId: z.string(),
+    status: z.string(),
     startDate: z.date(),
     endDate: z.date(),
     description: z.string().min(3, {
       message: "Isto é obrigatório, deve conter pelo menos 3 caracteres!",
     }),
-    email: z
+    responsible: z
       .string({
         required_error: "Selecione um e-mail",
       })
@@ -55,9 +59,11 @@ const projectCreationSchema = z
     path: ["endDate"],
   });
 
-type projectCreationSchema = z.infer<typeof projectCreationSchema>;
+export type projectCreationSchema = z.infer<typeof projectCreationSchema>;
 
 export function ProjectCreationDialog() {
+  const session = useSession();
+
   const {
     register,
     handleSubmit,
@@ -68,8 +74,20 @@ export function ProjectCreationDialog() {
     resolver: zodResolver(projectCreationSchema),
   });
 
-  function projectCreation(data: projectCreationSchema) {
-    console.log(data);
+  async function handleCreateProject(data: projectCreationSchema) {
+    await api.post("/api/projects/", {
+      name: data.name,
+      authorId: data.authorId,
+      status: data.status,
+      startDate: data.endDate,
+      endDate: data.endDate,
+      description: data.description,
+      responsible: data.responsible,
+    });
+  }
+
+  if (!session) {
+    return null;
   }
 
   return (
@@ -81,7 +99,7 @@ export function ProjectCreationDialog() {
         </DialogDescription>
       </DialogHeader>
 
-      <form onSubmit={handleSubmit(projectCreation)}>
+      <form onSubmit={handleSubmit(handleCreateProject)}>
         <div className="space-y-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
             <Label className="col-span-1 text-right" htmlFor="name">
@@ -198,7 +216,7 @@ export function ProjectCreationDialog() {
             </Label>
             <Controller
               control={control}
-              name="email"
+              name="responsible"
               render={({ field: { onChange, value } }) => (
                 <Select onValueChange={onChange} defaultValue={value}>
                   <SelectTrigger className="col-span-3">
@@ -223,6 +241,13 @@ export function ProjectCreationDialog() {
               id="description"
               {...register("description")}
             />
+            <Input
+              {...register("authorId", {
+                value: session.data?.user?.id,
+              })}
+              type="hidden"
+            />
+            <Input {...register("status", { value: "active" })} type="hidden" />
           </div>
         </div>
 

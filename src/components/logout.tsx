@@ -11,13 +11,12 @@ export function Logout() {
   }
   return (
     <>
-      {" "}
       <button
         className="text-sm font-medium hover:underline underline-offset-4"
         onClick={() => signOut()}
       >
         Sign out
-      </button>{" "}
+      </button>
       {session.user?.image && (
         <Image
           src={session.user?.image}
