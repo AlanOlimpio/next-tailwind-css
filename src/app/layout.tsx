@@ -7,6 +7,7 @@ import Footer from "@/components/footer";
 import SessionWrapper from "@/components/SessionWrapper";
 import { getServerSession } from "next-auth";
 import { buildNextAuthOptions } from "./api/auth/[...nextauth]/route";
+import { Toaster } from "sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -42,6 +43,7 @@ export default async function RootLayout({
             </div>
 
             <Footer />
+            <Toaster />
           </SessionWrapper>
         </ThemeProvider>
       </body>

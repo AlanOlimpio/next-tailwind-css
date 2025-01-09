@@ -2,6 +2,7 @@
 
 import { ProjectInterfaceProps } from "@/interfaces/projects";
 import { api } from "@/lib/axios";
+import { toast } from "sonner";
 
 import { TableBody } from "./ui/table";
 import { ProjectTableRow } from "./project-table-row";
@@ -9,14 +10,25 @@ import { useEffect, useState } from "react";
 export function TableBodyList() {
   const [productList, setProductList] = useState<ProjectInterfaceProps[]>([]);
 
-  async function handleProductsList() {
+  async function getProductsList() {
     const response: ProjectInterfaceProps[] = await api
       .get("/api/projects/")
       .then((response) => response.data);
     setProductList(response);
   }
+
+  async function handleProductsList() {
+    try {
+      getProductsList();
+      toast.success("Projeto criado com sucesso!");
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) {
+      toast.error("Ocorreu um erro ao criar o Projeto!");
+      throw new Error("Ocorreu um erro ao criar o Projeto!");
+    }
+  }
   useEffect(() => {
-    handleProductsList();
+    getProductsList();
   }, []);
 
   useEffect(() => {
