@@ -1,22 +1,15 @@
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 
-import {
-  Table,
-  TableBody,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { ProjectTableRow } from "@/components/project-table-row";
+import { Table, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 import { Metadata } from "next";
-import { projects } from "@/components/mock/projects";
 import { Button } from "@/components/ui/button";
 import { PlusCircle } from "lucide-react";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { ProjectCreationDialog } from "@/components/project-creation-dialog";
 import { buildNextAuthOptions } from "../api/auth/[...nextauth]/route";
+import { TableBodyList } from "@/components/table-body-list";
 
 export const metadata: Metadata = {
   title: "Project | Tailwind CSS",
@@ -56,13 +49,7 @@ export default async function Project() {
               <TableHead className="w-[164px]">Detalhes do Projeto</TableHead>
             </TableRow>
           </TableHeader>
-          <TableBody>
-            {projects.map((project, i) => {
-              return (
-                <ProjectTableRow project={project} key={`identifier${i}`} />
-              );
-            })}
-          </TableBody>
+          <TableBodyList />
         </Table>
       </div>
     </main>

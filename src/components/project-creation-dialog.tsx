@@ -67,6 +67,7 @@ export function ProjectCreationDialog() {
   const {
     register,
     handleSubmit,
+    reset,
     control,
     formState: { isSubmitting, errors },
   } = useForm<projectCreationSchema>({
@@ -84,6 +85,16 @@ export function ProjectCreationDialog() {
       description: data.description,
       responsible: data.responsible,
     });
+
+    dispatchEvent(
+      new CustomEvent("myCustomEvent", {
+        detail: {
+          data,
+        },
+      })
+    );
+
+    reset();
   }
 
   if (!session) {

@@ -1,9 +1,10 @@
+import { buildNextAuthOptions } from "@/app/api/auth/[...nextauth]/route";
 import { Comments } from "@/components/comments";
-import { projects } from "@/components/mock/projects";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 
 import { ProjectInterfaceProps } from "@/interfaces/projects";
+import { api } from "@/lib/axios";
 import { statusMap } from "@/utils/statusMap";
 import { ArrowRight } from "lucide-react";
 import { getServerSession } from "next-auth";
@@ -13,7 +14,7 @@ export default async function ProjectDetails({
 }: {
   params: ProjectInterfaceProps;
 }) {
-  const session = await getServerSession();
+  const session = await getServerSession(buildNextAuthOptions);
 
   if (!session) {
     redirect("/");
@@ -21,17 +22,18 @@ export default async function ProjectDetails({
 
   const { id } = await params;
 
-  const projectFilter = projects.filter((item) => {
-    if (item.id === id) {
-      return item;
-    }
-  });
-
-  const project = await new Promise<ProjectInterfaceProps>((resolve) => {
-    setTimeout(() => {
-      resolve(projectFilter[0]);
-    }, 200);
-  });
+  const project: ProjectInterfaceProps = await api
+    .post("/api/project/", {
+      id: id,
+    })
+    .then((response) => {
+      const dataTem = {
+        ...response.data,
+        associatedTasks: ["Criar testes"],
+        comments: [],
+      };
+      return dataTem;
+    });
 
   return (
     <main className="flex flex-col gap-4 pt-7">

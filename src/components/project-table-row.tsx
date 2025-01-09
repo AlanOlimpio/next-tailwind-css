@@ -8,13 +8,13 @@ import { TableCell, TableRow } from "@/components/ui/table";
 import { Progress } from "./ui/progress";
 import { ProjectInterfaceProps } from "@/interfaces/projects";
 import { statusMap } from "@/utils/statusMap";
-
 export function ProjectTableRow({
   project,
 }: {
   project: ProjectInterfaceProps;
 }) {
   const router = useRouter();
+
   return (
     <TableRow>
       <TableCell className="font-mono text-xs font-medium">

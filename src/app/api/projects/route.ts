@@ -29,3 +29,17 @@ export async function POST(req: NextRequest) {
     status: 201,
   });
 }
+
+export async function GET(req: NextRequest) {
+  if (req.method !== "GET") {
+    return NextResponse.json({ error: "Method not allowed." }, { status: 405 });
+  }
+
+  const projects = await prisma.project.findMany({
+    orderBy: { created_at: "desc" },
+  });
+  const projectFormat = JSON.stringify(projects);
+  return new Response(projectFormat, {
+    status: 200,
+  });
+}
